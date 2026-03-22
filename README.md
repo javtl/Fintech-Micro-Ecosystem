@@ -1,373 +1,254 @@
 # Fintech Micro-Ecosystem
 
-### Microservices Architecture with Java & Spring Boot
+### Microservices Architecture with Java & Spring Boot ☕
 
-Proyecto backend basado en **arquitectura de microservicios** inspirado en plataformas fintech modernas como Revolut.
+Backend system inspirado en arquitecturas fintech modernas, diseñado como un **ecosistema de microservicios desacoplados**.
 
-El objetivo es construir un **ecosistema backend desacoplado** capaz de gestionar:
+El sistema permite gestionar:
 
-* autenticación de usuarios
-* balances de wallets
-* transferencias entre usuarios
-* consulta de precios de criptomonedas mediante APIs externas
-
-Este proyecto está pensado como **entrenamiento previo a prácticas en una consultora**, aplicando prácticas de ingeniería reales utilizadas en entornos fintech.
+- Autenticación de usuarios
+- Wallets y balances
+- Transferencias entre usuarios
+- Consulta de precios de criptomonedas mediante APIs externas
 
 ---
 
-# Project Goals
+## 🚀 Why This Project?
 
-El proyecto busca demostrar competencias en:
+Este proyecto no es solo funcional, sino **intencionalmente diseñado para demostrar criterio de ingeniería backend**, incluyendo:
 
-* **Arquitectura de microservicios**
-* **Autenticación segura con JWT**
-* **Diseño de APIs REST**
-* **Integración con APIs externas**
-* **Contenerización con Docker**
-* **Buenas prácticas de ingeniería backend**
-* **Testing e integración continua**
-
-El sistema simula una **infraestructura fintech simplificada**.
+- Diseño de sistemas distribuidos
+- Seguridad stateless con JWT
+- Separación de responsabilidades
+- Integración con servicios externos
+- Preparación para entornos productivos (Docker, testing, etc.)
 
 ---
 
-# Architecture Overview
+## 🧠 Architecture Overview
 
-Sistema compuesto por varios servicios independientes que se comunican mediante HTTP APIs.
+Arquitectura basada en microservicios independientes comunicándose vía HTTP.
 
 ```
-                +------------------+
-                |    Frontend      |
-                |  (React/Next.js) |
-                +--------+---------+
-                         |
-                         v
-                +------------------+
-                |   Auth Service   |
-                | Spring Security  |
-                |       JWT        |
-                +--------+---------+
-                         |
-                         v
-         +---------------+---------------+
-         |                               |
-         v                               v
+
+```
+            +------------------+
+            |    Frontend      |
+            |  (React/Next.js) |
+            +--------+---------+
+                     |
+                     v
+            +------------------+
+            |   Auth Service   |
+            | Spring Security  |
+            |       JWT        |
+            +--------+---------+
+                     |
+                     v
+     +---------------+---------------+
+     |                               |
+     v                               v
+
 +------------------+           +------------------+
 |  Wallet Service  |           | Crypto Proxy     |
-| User balances    |           | CoinGecko API    |
-| Database storage |           | Price caching    |
+| User balances    |           | External APIs    |
+| Database storage |           | Caching layer    |
 +--------+---------+           +---------+--------+
-         |
-         v
+|
+v
 +------------------+
 | Transactions     |
 | Transfer logic   |
 +------------------+
-```
 
-Principios utilizados:
+### Design Principles
 
-* **Service isolation**
-* **Single responsibility**
-* **Stateless authentication**
-* **External API abstraction**
+- Service Isolation
+- Single Responsibility Principle (SRP)
+- Stateless Authentication
+- External API Abstraction
 
 ---
 
-# Microservices
+## 🧩 Microservices Breakdown
 
-## Auth Service
+### 🔐 Auth Service
 
-Servicio responsable de **gestionar autenticación e identidad de usuarios**.
+Gestiona identidad y autenticación.
 
-### Features
+**Responsabilidades:**
+- Registro y login
+- Generación de JWT
+- Configuración de seguridad
 
-* Registro de usuario
-* Login
-* Generación de tokens JWT
-* Configuración de seguridad con Spring Security
-* Autenticación stateless
-
-### Tech Stack
-
-* Java
-* Spring Boot
-* Spring Security
-* JWT
-
-### Example Endpoints
+**Endpoints:**
 
 ```
 POST /auth/register
 POST /auth/login
+
 ```
 
 ---
 
-## Wallet Service
+### 💰 Wallet Service
 
-Gestiona los **balances de usuario y operaciones de wallet**.
+Gestiona balances de usuario.
 
-### Features
+**Responsabilidades:**
+- Persistencia de wallets
+- Consulta de balances
+- Operaciones básicas (deposit)
 
-* Entidad Wallet
-* Persistencia de balances
-* Simulación de depósitos
-* Consulta de balances
-* Validación JWT para acceso seguro
-
-### Wallet Schema Example
+**Modelo:**
 
 ```
 Wallet
-------
-id
-userId
-balance
-currency
-createdAt
+
+* id
+* userId
+* balance
+* currency
+* createdAt
 ```
 
-### Example Endpoints
+**Endpoints:**
 
 ```
+
 GET /wallet/balance
 POST /wallet/deposit
 ```
 
 ---
 
-## Transactions Service
+### 🔄 Transactions Service
 
-Simula **transferencias de dinero entre usuarios**.
+Gestiona transferencias entre usuarios.
 
-### Features
+**Responsabilidades:**
+- Transferencias seguras
+- Validación de saldo
+- Historial de transacciones
 
-* Transferencias entre wallets
-* Validación de balance
-* Historial de transacciones
-* Operaciones atómicas
+**Modelo:**
 
-### Example Endpoints
+```
+Transaction
+
+* id
+* senderId
+* receiverId
+* amount
+* timestamp
+* status
+```
+
+**Endpoints:**
 
 ```
 POST /transactions/transfer
 GET /transactions/history
 ```
 
-### Transaction Schema Example
-
-```
-Transaction
------------
-id
-senderId
-receiverId
-amount
-timestamp
-status
-```
-
 ---
 
-## Crypto Proxy Service
+### ₿ Crypto Proxy Service
 
-Servicio encargado de consumir precios de criptomonedas desde APIs externas como:
+Abstracción de APIs externas (ej: CoinGecko).
 
-* CoinGecko
+**Responsabilidades:**
+- Fetch de precios
+- Caching
+- Rate limiting
+- Evitar exposición directa desde frontend
 
-### Purpose
-
-* Evitar llamadas directas desde frontend
-* Abstraer APIs externas
-* Añadir capa de caché
-* Controlar rate limiting
-
-### Example Endpoint
+**Endpoint:**
 
 ```
 GET /crypto/prices
-```
-
-### Example Response
-
-```
-{
-  "bitcoin": 65000,
-  "ethereum": 3200
-}
-```
+````
 
 ---
 
-# Tech Stack
+## 🛠️ Tech Stack
 
-## Backend
+### Backend
+- Java
+- Spring Boot
+- Spring Security
+- JWT
+- REST APIs
+- OpenAPI / Swagger
 
-* Java
-* Spring Boot
-* Spring Security
-* JWT
-* REST APIs
-* OpenAPI / Swagger
+### Infrastructure
+- Docker
+- Docker Compose
 
-## Frontend (opcional)
+### Testing
+- JUnit
+- Mockito
+- Integration Tests
 
-* React
-* Next.js
-* TailwindCSS
-
-## Infrastructure
-
-* Docker
-* Docker Compose
-
-## Testing
-
-* JUnit
-* Mockito
-* Integration Tests
+### Frontend (optional)
+- React / Next.js
 
 ---
 
-# Database Options (Recommended Order)
+## 🗄️ Database Strategy
 
-Dependiendo del tipo de arquitectura, estas bases de datos serían adecuadas:
+### PostgreSQL (Recommended)
+- ACID compliance
+- Ideal para transacciones financieras
 
-### 1️⃣ PostgreSQL (Recomendado)
+### MySQL / MariaDB
+- Alternativa estable y sencilla
 
-La opción más utilizada en fintech modernas.
-
-Ventajas:
-
-* Alta consistencia
-* Transacciones ACID
-* Excelente soporte para sistemas financieros
-* Muy buen rendimiento con Spring Boot
-
-Ideal para:
-
-* wallets
-* transacciones
-* usuarios
+### MongoDB (Optional Use)
+- Cache de precios crypto
+- Logs / analytics
 
 ---
 
-### 2️⃣ MariaDB / MySQL
+## 🧭 Development Roadmap
 
-Muy estable y ampliamente utilizada.
+### Sprint 1 — Auth
+- JWT + Spring Security
+- Register/Login
+- Tests básicos
 
-Ventajas:
+### Sprint 2 — Wallet
+- Modelo Wallet
+- Persistencia
+- Seguridad con JWT
 
-* Fácil de usar
-* Muy buena integración con Java
-* Buena documentación
+### Sprint 3 — Crypto
+- Integración CoinGecko
+- Caching
+- Endpoint de precios
 
-Es una buena opción si ya se utiliza en el entorno académico.
+### Sprint 4 — Transactions
+- Transferencias
+- Validaciones
+- Atomicidad
 
----
-
-### 3️⃣ MongoDB
-
-Base de datos NoSQL orientada a documentos.
-
-Ventajas:
-
-* Flexible
-* Ideal para datos no estructurados
-* Escalabilidad horizontal
-
-Uso recomendado en este proyecto:
-
-* almacenar caché de precios crypto
-* logs o datos analíticos
-
----
-
-# Development Roadmap
-
-## Sprint 1 — Auth Service
-
-Objetivo: implementar autenticación.
-
-Tasks:
-
-* Configurar Spring Security
-* Implementar JWT
-* Crear endpoints register/login
-* Crear tests básicos
+### Sprint 5 — DevOps
+- Dockerización
+- docker-compose
+- Tests de integración
+- Logging + OpenAPI
 
 ---
 
-## Sprint 2 — Wallet Service
+## ▶️ Running the Project
 
-Objetivo: persistencia de wallets.
-
-Tasks:
-
-* Crear entidad Wallet
-* Implementar endpoints de balance
-* Seguridad con JWT
-* Validar ownership del usuario
-
----
-
-## Sprint 3 — Crypto Service
-
-Objetivo: integración con API externa.
-
-Tasks:
-
-* Cliente para CoinGecko
-* Implementar caching
-* Endpoint de precios
-* Simulación de compra de crypto
-
----
-
-## Sprint 4 — Transactions Service
-
-Objetivo: transferencias entre usuarios.
-
-Tasks:
-
-* Transferencias
-* Validación de balances
-* Historial de transacciones
-* Operaciones atómicas
-
----
-
-## Sprint 5 — DevOps & Quality
-
-Objetivo: entorno más cercano a producción.
-
-Tasks:
-
-* Dockerizar servicios
-* docker-compose
-* Tests de integración
-* Documentación OpenAPI
-* Logging estructurado
-
----
-
-# Running the Project
-
-Clonar repositorio:
-
-```
+```bash
 git clone https://github.com/yourusername/fintech-micro-ecosystem.git
 cd fintech-micro-ecosystem
-```
-
-Ejecutar con Docker:
-
-```
 docker-compose up --build
-```
+````
 
-Servicios que se levantarán:
+Servicios incluidos:
 
 * Auth Service
 * Wallet Service
@@ -377,9 +258,9 @@ Servicios que se levantarán:
 
 ---
 
-# API Documentation
+## 📄 API Documentation
 
-Swagger disponible en:
+Disponible en:
 
 ```
 http://localhost:8080/swagger-ui.html
@@ -387,28 +268,15 @@ http://localhost:8080/swagger-ui.html
 
 ---
 
-# Suggested Repository Structure
-
-Un enfoque profesional sería:
+## 📁 Project Structure
 
 ```
 fintech-micro-ecosystem
 │
 ├── auth-service
-│   ├── src
-│   └── Dockerfile
-│
 ├── wallet-service
-│   ├── src
-│   └── Dockerfile
-│
 ├── transaction-service
-│   ├── src
-│   └── Dockerfile
-│
 ├── crypto-proxy-service
-│   ├── src
-│   └── Dockerfile
 │
 ├── docker-compose.yml
 ├── README.md
@@ -417,36 +285,31 @@ fintech-micro-ecosystem
 
 ---
 
-# Learning Outcomes
+## 🎯 Learning Outcomes
 
 Este proyecto demuestra:
 
-* arquitectura de microservicios
-* diseño de APIs seguras
-* integración con APIs externas
-* separación de responsabilidades
-* infraestructura dockerizada
-
-Son exactamente las habilidades utilizadas en **backend fintech modernos**.
+* Diseño de microservicios
+* APIs seguras con JWT
+* Integración externa
+* Arquitectura desacoplada
+* Preparación para producción
 
 ---
 
-# Future Improvements
-
-Posibles extensiones avanzadas:
+## 🔮 Future Improvements
 
 * API Gateway (Spring Cloud Gateway)
-* Service discovery
-* Event-driven architecture con Kafka
-* Deployment en Kubernetes
+* Service Discovery
+* Event-driven architecture (Kafka)
+* Kubernetes deployment
 * Rate limiting
-* Monitoring con Prometheus y Grafana
-* CI/CD pipeline
+* Observabilidad (Prometheus + Grafana)
+* CI/CD
 
 ---
 
-# License
+## 📜 License
 
-MIT License
+MIT
 
----
