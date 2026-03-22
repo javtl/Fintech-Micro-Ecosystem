@@ -30,8 +30,6 @@ Este proyecto no es solo funcional, sino **intencionalmente diseñado para demos
 Arquitectura basada en microservicios independientes comunicándose vía HTTP.
 
 ```
-
-```
             +------------------+
             |    Frontend      |
             |  (React/Next.js) |
@@ -60,6 +58,10 @@ v
 | Transactions     |
 | Transfer logic   |
 +------------------+
+
+````
+
+---
 
 ### Design Principles
 
