@@ -153,20 +153,14 @@ GET /crypto/prices
 ![REST API](https://img.shields.io/badge/REST_API-025E8C?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23C1272D?style=for-the-badge&logo=swagger&logoColor=white)
 
----
-
 ### 🧪 Testing
 ![JUnit 5](https://img.shields.io/badge/Junit5-25A162?style=for-the-badge&logo=junit5&logoColor=white)
 ![Mockito](https://img.shields.io/badge/Mockito-6DB33F?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Integration Tests](https://img.shields.io/badge/Integration_Tests-orange?style=for-the-badge&logo=testcafe&logoColor=white)
 
----
-
 ### 🐳 Infrastructure
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Docker Compose](https://img.shields.io/badge/docker_compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-
----
 
 ### 🌐 Frontend (Optional)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
