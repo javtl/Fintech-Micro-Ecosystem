@@ -29,37 +29,7 @@ Este proyecto no es solo funcional, sino **intencionalmente diseñado para demos
 
 Arquitectura basada en microservicios independientes comunicándose vía HTTP.
 
-```
-            +------------------+
-            |    Frontend      |
-            |  (React/Next.js) |
-            +--------+---------+
-                     |
-                     v
-            +------------------+
-            |   Auth Service   |
-            | Spring Security  |
-            |       JWT        |
-            +--------+---------+
-                     |
-                     v
-     +---------------+---------------+
-     |                               |
-     v                               v
-
-+------------------+           +------------------+
-|  Wallet Service  |           | Crypto Proxy     |
-| User balances    |           | External APIs    |
-| Database storage |           | Caching layer    |
-+--------+---------+           +---------+--------+
-|
-v
-+------------------+
-| Transactions     |
-| Transfer logic   |
-+------------------+
-
-````
+![Architecture-diagram](/assets/architecture-diagram.png)
 
 ---
 
