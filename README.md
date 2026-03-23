@@ -125,7 +125,7 @@ GET /transactions/history
 
 ---
 
-### ₿ Crypto Proxy Service
+### ⛓️ Crypto Proxy Service
 
 Abstracción de APIs externas (ej: CoinGecko).
 
