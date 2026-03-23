@@ -216,7 +216,7 @@ GET /crypto/prices
 ## ▶️ Running the Project
 
 ```bash
-git clone https://github.com/yourusername/fintech-micro-ecosystem.git
+git clone https://github.com/javtl/Fintech-Micro-Ecosystem.git
 cd fintech-micro-ecosystem
 docker-compose up --build
 ````
