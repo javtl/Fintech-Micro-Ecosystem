@@ -145,25 +145,32 @@ GET /crypto/prices
 
 ## 🛠️ Tech Stack
 
-### Backend
-- Java
-- Spring Boot
-- Spring Security
-- JWT
-- REST APIs
-- OpenAPI / Swagger
+### 🖥️ Backend
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![REST API](https://img.shields.io/badge/REST_API-025E8C?style=for-the-badge&logo=fastapi&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23C1272D?style=for-the-badge&logo=swagger&logoColor=white)
 
-### Infrastructure
-- Docker
-- Docker Compose
+---
 
-### Testing
-- JUnit
-- Mockito
-- Integration Tests
+### 🧪 Testing
+![JUnit 5](https://img.shields.io/badge/Junit5-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+![Mockito](https://img.shields.io/badge/Mockito-6DB33F?style=for-the-badge&logo=google-cloud&logoColor=white)
+![Integration Tests](https://img.shields.io/badge/Integration_Tests-orange?style=for-the-badge&logo=testcafe&logoColor=white)
 
-### Frontend (optional)
-- React / Next.js
+---
+
+### 🐳 Infrastructure
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Docker Compose](https://img.shields.io/badge/docker_compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+---
+
+### 🌐 Frontend (Optional)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
 ---
 
